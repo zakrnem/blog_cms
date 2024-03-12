@@ -25,3 +25,4 @@ dist-ssr
 
 pending.txt
 node_modules
+.env
