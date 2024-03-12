@@ -1,9 +1,9 @@
 function PostEdit() {
-    return (
-        <>
-            <h2>Edit Post</h2>
-        </>
-    )
+  return (
+    <>
+      <h2>Edit Post</h2>
+    </>
+  );
 }
 
-export default PostEdit
+export default PostEdit;

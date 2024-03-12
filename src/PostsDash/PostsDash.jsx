@@ -1,9 +1,9 @@
 function PostsDash() {
-    return (
-        <>
-            <h2>Posts Dashboard</h2>
-        </>
-    )
+  return (
+    <>
+      <h2>Posts Dashboard</h2>
+    </>
+  );
 }
 
-export default PostsDash
+export default PostsDash;

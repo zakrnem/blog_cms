@@ -13,14 +13,15 @@ function Root() {
   return (
     <>
       <Header />
-      
+
       <Outlet />
       <Routes errorElement={<ErrorPage />}>
-        <Route path="/login" element={< LoginForm />} />
-        <Route path="/posts" element={< PostsDash />} />
-        <Route path="/comments" element={< CommentsDash />} />
-        <Route path="/post/edit" element={< PostEdit />} />
-        <Route path="/post/new" element={< PostNew />} />
+        <Route path="" element={<LoginForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/posts" element={<PostsDash />} />
+        <Route path="/comments" element={<CommentsDash />} />
+        <Route path="/post/edit" element={<PostEdit />} />
+        <Route path="/post/new" element={<PostNew />} />
       </Routes>
     </>
   );
