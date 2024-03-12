@@ -1,0 +1,40 @@
+.form {
+    display: grid;
+    gap: 0.75rem;
+  }
+  
+  .form > div {
+    display: grid;
+    gap: 0.2rem;
+  }
+  
+  .submit {
+    margin-top: 0.5rem;
+    justify-self: center;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+  }
+  
+  .title {
+    font-weight: bolder;
+    font-size: 2rem;
+  }
+  
+  .signup {
+    height: 100%;
+    display: grid;
+    gap: 1rem;
+    justify-content: center;
+    align-content: center;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .signup {
+      margin: 0 1rem;
+      align-self: center;
+    }
+    .title {
+      font-size: 1.5rem;
+    }
+  }
