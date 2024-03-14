@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
 import ErrorPage from "../error-page";
 import LoginForm from "../LoginForm/LoginForm";
-import SignupForm from "../SignupForm/SignupForm"
+import SignupForm from "../SignupForm/SignupForm";
 import PostsDash from "../PostsDash/PostsDash";
 import CommentsDash from "../CommentsDash/CommentsDash";
 import PostEdit from "../PostEdit/PostEdit";
