@@ -1,0 +1,66 @@
+.posts {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+  
+  .loading {
+    display: grid;
+    gap: 1.25rem;
+    font-size: 2.5rem;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .loader {
+    margin: auto;
+    border: 2vw solid var(--light-white);
+    border-radius: 50%;
+    border-top: 2vw solid var(--main-color);
+    width: 15vw;
+    height: 15vw;
+    animation: spinner 1s linear infinite;
+  }
+  
+  .title {
+    font-weight: bolder;
+    color: var(--black);
+    font-size: 1.5rem;
+  }
+  
+  .post {
+    display: grid;
+    gap: 0.5rem;
+    background-color: var(--light-grey);
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+  }
+  
+  .summary {
+    text-align: justify;
+  }
+  
+  .date {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .comments {
+    font-weight: bold;
+  }
+  
+  .next_page {
+    margin-top: 1rem;
+  }
+  
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }  
