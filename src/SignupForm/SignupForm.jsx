@@ -22,8 +22,8 @@ function SignupForm() {
           <input type="text" id="lastName" placeholder="Enter your last name" />
         </div>
         <div>
-          <label htmlFor="username">Username: </label>
-          <input type="text" id="username" placeholder="Enter your username" />
+          <label htmlFor="username">Email: </label>
+          <input type="text" id="username" placeholder="Enter your email" />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
