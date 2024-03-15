@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
 import ErrorPage from "../error-page";
+import Homepage from "../Homepage/Homepage";
 import LoginForm from "../LoginForm/LoginForm";
 import SignupForm from "../SignupForm/SignupForm";
 import PostsDash from "../PostsDash/PostsDash";
@@ -64,7 +65,7 @@ function Root() {
 
       <Outlet />
       <Routes errorElement={<ErrorPage />}>
-        <Route path="" element={<LoginForm setActiveElement={setActiveElement} />} />
+        <Route path="" element={<Homepage setActiveElement={setActiveElement} auth={auth} />} />
         <Route path="/login" element={<LoginForm setActiveElement={setActiveElement} />} />
         <Route path="/signup" element={<SignupForm setActiveElement={setActiveElement} />} />
         <Route path="/posts" element={<PostsDash setActiveElement={setActiveElement} />} />
