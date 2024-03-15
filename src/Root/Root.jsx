@@ -11,19 +11,66 @@ import PostEdit from "../PostEdit/PostEdit";
 import PostNew from "../PostNew/PostNew";
 
 function Root() {
+  const [error, setError] = useState("");
+  const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState([]);
+  const [activeElement, setActiveElement] = useState("");
+
+  const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";
+  useEffect(() => {
+    fetch(isAuthURL, { method: "get", credentials: "include" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`,
+          );
+        }
+        return response.json();
+      })
+      .then((response) => setAuth(response))
+      .catch((err) => {
+        setError(err.message);
+      });
+  });
+
+  const getUserURL = import.meta.env.VITE_API_URL + "/user";
+  useEffect(() => {
+    if (auth) {
+      fetch(getUserURL, { method: "get", credentials: "include" })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `This is an HTTP error: The status is ${response.status}`,
+            );
+          }
+          return response.json();
+        })
+        .then((response) => setUser(response))
+        .catch((err) => {
+          setError(err.message);
+        });
+    }
+  }, [auth]);
+
   return (
     <>
-      <Header />
+      <Header
+        activeElement={activeElement}
+        setActiveElement={setActiveElement}
+        auth={auth}
+        setAuth={setAuth}
+        user={user}
+      />
 
       <Outlet />
       <Routes errorElement={<ErrorPage />}>
-        <Route path="" element={<LoginForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
-        <Route path="/posts" element={<PostsDash />} />
-        <Route path="/comments" element={<CommentsDash />} />
-        <Route path="/post/edit" element={<PostEdit />} />
-        <Route path="/post/new" element={<PostNew />} />
+        <Route path="" element={<LoginForm setActiveElement={setActiveElement} />} />
+        <Route path="/login" element={<LoginForm setActiveElement={setActiveElement} />} />
+        <Route path="/signup" element={<SignupForm setActiveElement={setActiveElement} />} />
+        <Route path="/posts" element={<PostsDash setActiveElement={setActiveElement} />} />
+        <Route path="/comments" element={<CommentsDash setActiveElement={setActiveElement} />} />
+        <Route path="/post/edit" element={<PostEdit setActiveElement={setActiveElement} />} />
+        <Route path="/post/new" element={<PostNew setActiveElement={setActiveElement} />} />
       </Routes>
     </>
   );

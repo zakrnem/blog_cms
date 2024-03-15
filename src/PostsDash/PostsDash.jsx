@@ -3,11 +3,15 @@ import styles from "./PostsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function PostsDash() {
+function PostsDash({ setActiveElement }) {
   const page = 1;
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setActiveElement("posts");
+  });
 
   const handlePostClick = (e) => {
     e.preventDefault();

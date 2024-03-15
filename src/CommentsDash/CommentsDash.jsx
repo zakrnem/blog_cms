@@ -3,10 +3,15 @@ import styles from "./CommentsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function CommentsDash() {
+function CommentsDash({ setActiveElement }) {
+  
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setActiveElement("comments");
+  });
 
   const handleCommentClick = (e) => {
     e.preventDefault();

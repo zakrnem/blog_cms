@@ -1,10 +1,16 @@
 import styles from "./SignupForm.module.css";
+import { useEffect } from "react";
 
-function SignupForm() {
+function SignupForm({ setActiveElement }) {
+  useEffect(() => {
+    setActiveElement("signup");
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit");
   };
+
   return (
     <div className={styles.signup}>
       <div className={styles.title}>Create an account</div>

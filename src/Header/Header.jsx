@@ -1,12 +1,30 @@
 import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Header() {
-  const activeElement = "";
-  const setActiveElement = (e) => {
-    e.preventDefault();
-    console.log("set active");
+function Header({ activeElement, setActiveElement, auth, setAuth, user }) {
+  const navigate = useNavigate();
+
+  const handleSignout = () => {
+    const apiURL = import.meta.env.VITE_API_URL + "/logout";
+    fetch(apiURL, {
+      method: "post",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        setAuth(false);
+        navigate("/login");
+      });
   };
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
@@ -16,42 +34,54 @@ function Header() {
         <div className={styles.title}>Zakrnem's Tech Blog</div>
       </div>
       <div className={styles.links}>
-        <Link
-          to="login"
-          className={activeElement === "login" ? styles.active : ""}
-          onClick={() => {
-            setActiveElement("login");
-          }}
-        >
-          Login
-        </Link>
-        <Link
-          to="signup"
-          className={activeElement === "signup" ? styles.active : ""}
-          onClick={() => {
-            setActiveElement("signup");
-          }}
-        >
-          Sign up
-        </Link>
-        <Link
-          to="comments"
-          className={activeElement === "comments" ? styles.active : ""}
-          onClick={() => {
-            setActiveElement("comments");
-          }}
-        >
-          Comments
-        </Link>
-        <Link
-          to="posts"
-          className={activeElement === "posts" ? styles.active : ""}
-          onClick={() => {
-            setActiveElement("posts");
-          }}
-        >
-          Posts
-        </Link>
+        {auth && (
+          <>
+            <Link
+              to="comments"
+              className={activeElement === "comments" ? styles.active : ""}
+              onClick={() => {
+                setActiveElement("comments");
+              }}
+            >
+              Comments
+            </Link>
+            <Link
+              to="posts"
+              className={activeElement === "posts" ? styles.active : ""}
+              onClick={() => {
+                setActiveElement("posts");
+              }}
+            >
+              Posts
+            </Link>
+            <Link
+              to="user"
+              className={`${styles.account} ${activeElement === "user" ? styles.active : ""}`}
+            >
+              <img src="./user-svgrepo-com.svg" className={styles.userlogo} />
+              {user.fullname}
+            </Link>
+            <Link to="#" onClick={handleSignout}>
+              Sign out
+            </Link>
+          </>
+        )}
+        {!auth && (
+          <>
+            <Link
+              to="login"
+              className={activeElement === "login" ? styles.active : ""}
+            >
+              Log in
+            </Link>
+            <Link
+              to="signup"
+              className={activeElement === "signup" ? styles.active : ""}
+            >
+              Sign up
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

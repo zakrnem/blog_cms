@@ -1,10 +1,42 @@
+import { useEffect } from "react";
 import styles from "./LoginForm.module.css";
+import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+function LoginForm({ setActiveElement }) {
+  useEffect(() => {
+    setActiveElement("login");
+  });
+  const navigate = useNavigate();
+  const apiURL = import.meta.env.VITE_API_URL + "/login";
+  useEffect(() => {
+    setActiveElement("login");
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submit");
+    const username = e.target.querySelector("#username").value;
+    const password = e.target.querySelector("#password").value;
+    const data = { username, password };
+    fetch(apiURL, {
+      method: "post",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .finally(() => {
+        navigate("/posts");
+      });
   };
+
   return (
     <div className={styles.login}>
       <div className={styles.title}>Log in to your account</div>
