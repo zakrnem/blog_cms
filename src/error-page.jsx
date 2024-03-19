@@ -1,16 +1,26 @@
-import { useRouteError } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ErrorPage() {
-  const error = useRouteError();
-  console.error(error);
+function ErrorPage({
+  setActiveElement,
+  error,
+  setError,
+  errorMessage,
+  setErrorMessage,
+}) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setActiveElement("");
+    if (!error) navigate("/home")
+  });
 
   return (
     <div id="error-page">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+      <p>{errorMessage.title}</p>
+      <p>{errorMessage.message}</p>
     </div>
   );
 }

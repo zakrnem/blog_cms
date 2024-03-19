@@ -164,6 +164,18 @@ function Root() {
             />
           }
         />
+        <Route
+          path="/error"
+          element={
+            <ErrorPage
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
       </Routes>
     </>
   );

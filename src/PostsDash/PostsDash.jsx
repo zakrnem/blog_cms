@@ -52,7 +52,7 @@ function PostsDash({
             });
           }
         } else {
-          setError(false)
+          setError(false);
         }
         return response.json();
       })
