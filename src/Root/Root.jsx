@@ -12,10 +12,11 @@ import PostEdit from "../PostEdit/PostEdit";
 import PostNew from "../PostNew/PostNew";
 
 function Root() {
-  const [error, setError] = useState("");
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState([]);
   const [activeElement, setActiveElement] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";
   useEffect(() => {
@@ -30,7 +31,7 @@ function Root() {
       })
       .then((response) => setAuth(response))
       .catch((err) => {
-        setError(err.message);
+        setErrorMessage({ message: err.message });
       });
   });
 
@@ -48,7 +49,7 @@ function Root() {
         })
         .then((response) => setUser(response))
         .catch((err) => {
-          setError(err.message);
+          setErrorMessage({ message: err.message });
         });
     }
   }, [auth]);
@@ -65,13 +66,104 @@ function Root() {
 
       <Outlet />
       <Routes errorElement={<ErrorPage />}>
-        <Route path="" element={<Homepage setActiveElement={setActiveElement} auth={auth} />} />
-        <Route path="/login" element={<LoginForm setActiveElement={setActiveElement} />} />
-        <Route path="/signup" element={<SignupForm setActiveElement={setActiveElement} />} />
-        <Route path="/posts" element={<PostsDash setActiveElement={setActiveElement} />} />
-        <Route path="/comments" element={<CommentsDash setActiveElement={setActiveElement} />} />
-        <Route path="/post/edit" element={<PostEdit setActiveElement={setActiveElement} />} />
-        <Route path="/post/new" element={<PostNew setActiveElement={setActiveElement} />} />
+        <Route
+          path=""
+          element={
+            <Homepage
+              setActiveElement={setActiveElement}
+              auth={auth}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <Homepage
+              setActiveElement={setActiveElement}
+              auth={auth}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LoginForm
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <SignupForm
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/posts"
+          element={
+            <PostsDash
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/comments"
+          element={
+            <CommentsDash
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/post/edit"
+          element={
+            <PostEdit
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
+        <Route
+          path="/post/new"
+          element={
+            <PostNew
+              setActiveElement={setActiveElement}
+              error={error}
+              setError={setError}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          }
+        />
       </Routes>
     </>
   );

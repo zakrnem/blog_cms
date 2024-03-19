@@ -3,13 +3,21 @@ import styles from "./PostsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function PostsDash({ setActiveElement }) {
+function PostsDash({
+  setActiveElement,
+  error,
+  setError,
+  errorMessage,
+  setErrorMessage,
+}) {
+  const navigate = useNavigate();
+
   const page = 1;
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (error) navigate("/home");
     setActiveElement("posts");
   });
 
@@ -23,7 +31,7 @@ function PostsDash({ setActiveElement }) {
   };
 
   useEffect(() => {
-    if (error !== null) console.log(error);
+    console.log(error, errorMessage);
   }, [error]);
 
   useEffect(() => {
@@ -31,16 +39,24 @@ function PostsDash({ setActiveElement }) {
     fetch(apiURL, { method: "get" })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`,
-          );
+          setError(true);
+          if (err.status === 401) {
+            setErrorMessage({
+              title: "Unauthorized",
+              message: "Please log in before browsing this page",
+            });
+          } else {
+            setErrorMessage({
+              title: "HTTP Error",
+              message: `This is an HTTP error: The status is ${response.status}`,
+            });
+          }
+        } else {
+          setError(false)
         }
         return response.json();
       })
       .then((actualData) => setBlogData(actualData))
-      .catch((err) => {
-        setError(err.message);
-      })
       .finally(() => {
         setLoading(false);
       });
@@ -52,6 +68,12 @@ function PostsDash({ setActiveElement }) {
         <div className={styles.loading}>
           <div className={styles.loader} />
           Loading
+        </div>
+      )}
+      {error && (
+        <div className={styles.error}>
+          <div className={styles.errorTitle}>{errorMessage.title}</div>
+          <>{errorMessage.message}</>
         </div>
       )}
       {Object.keys(blogData).map((index) => {

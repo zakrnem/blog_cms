@@ -3,8 +3,7 @@ import styles from "./CommentsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function CommentsDash({ setActiveElement }) {
-  
+function CommentsDash({ setActiveElement, errorMessage, setErrorMessage }) {
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -1,16 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm({ setActiveElement }) {
-  useEffect(() => {
-    setActiveElement("login");
-  });
+function LoginForm({
+  setActiveElement,
+  error,
+  setError,
+  errorMessage,
+  setErrorMessage,
+}) {
   const navigate = useNavigate();
-  const apiURL = import.meta.env.VITE_API_URL + "/login";
+
   useEffect(() => {
     setActiveElement("login");
   });
+
+  useEffect(() => {
+    console.log(error, errorMessage);
+  }, [error]);
+
+  const apiURL = import.meta.env.VITE_API_URL + "/login";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,18 +36,35 @@ function LoginForm({ setActiveElement }) {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
+        if (!response.ok) {
+          setError(true);
+          if (response.status === 400) {
+            setErrorMessage({
+              title: "Bad request",
+              message: "Username or password are wrong",
+            });
+          } else {
+            setErrorMessage({
+              title: "HTTP Error",
+              message: `This is an HTTP error: The status is ${response.status}`,
+            });
+          }
+        } else {
+          setError(false);
         }
         return response.json();
       })
-      .finally(() => {
-        navigate("/posts");
-      });
+      .finally(() => navigate("/posts"));
   };
 
   return (
     <div className={styles.login}>
+      {error && (
+        <div className={styles.error}>
+          <div className={styles.errorTitle}>{errorMessage.title}</div>
+          <>{errorMessage.message}</>
+        </div>
+      )}
       <div className={styles.title}>Log in to your account</div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
