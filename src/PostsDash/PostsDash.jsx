@@ -3,13 +3,7 @@ import styles from "./PostsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function PostsDash({
-  setActiveElement,
-  error,
-  setError,
-  errorMessage,
-  setErrorMessage,
-}) {
+function PostsDash({ setActiveElement, error, setError }) {
   const navigate = useNavigate();
 
   const page = 1;
@@ -31,28 +25,26 @@ function PostsDash({
   };
 
   useEffect(() => {
-    console.log(error, errorMessage);
-  }, [error]);
-
-  useEffect(() => {
     const apiURL = import.meta.env.VITE_API_URL + "/posts/page/" + page;
     fetch(apiURL, { method: "get" })
       .then((response) => {
         if (!response.ok) {
           setError(true);
           if (err.status === 401) {
-            setErrorMessage({
+            setError({
+              state: true,
               title: "Unauthorized",
               message: "Please log in before browsing this page",
             });
           } else {
-            setErrorMessage({
+            setError({
+              state: true,
               title: "HTTP Error",
               message: `This is an HTTP error: The status is ${response.status}`,
             });
           }
         } else {
-          setError(false);
+          setError({ state: false });
         }
         return response.json();
       })
@@ -68,12 +60,6 @@ function PostsDash({
         <div className={styles.loading}>
           <div className={styles.loader} />
           Loading
-        </div>
-      )}
-      {error && (
-        <div className={styles.error}>
-          <div className={styles.errorTitle}>{errorMessage.title}</div>
-          <>{errorMessage.message}</>
         </div>
       )}
       {Object.keys(blogData).map((index) => {

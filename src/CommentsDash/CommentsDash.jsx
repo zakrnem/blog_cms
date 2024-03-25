@@ -3,10 +3,9 @@ import styles from "./CommentsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function CommentsDash({ setActiveElement, errorMessage, setErrorMessage }) {
+function CommentsDash({ setActiveElement, setError }) {
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     setActiveElement("comments");
@@ -16,10 +15,6 @@ function CommentsDash({ setActiveElement, errorMessage, setErrorMessage }) {
     e.preventDefault();
     console.log("Clicked comment");
   };
-
-  useEffect(() => {
-    if (error !== null) console.log(error);
-  }, [error]);
 
   useEffect(() => {
     const apiURL = import.meta.env.VITE_API_URL + "/comments";
@@ -34,7 +29,7 @@ function CommentsDash({ setActiveElement, errorMessage, setErrorMessage }) {
       })
       .then((actualData) => setBlogData(actualData))
       .catch((err) => {
-        setError(err.message);
+        setError({ state: true, title: "HTTP Error", message: err.message });
       })
       .finally(() => {
         setLoading(false);

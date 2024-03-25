@@ -10,13 +10,17 @@ import PostsDash from "../PostsDash/PostsDash";
 import CommentsDash from "../CommentsDash/CommentsDash";
 import PostEdit from "../PostEdit/PostEdit";
 import PostNew from "../PostNew/PostNew";
+import ErrorWindow from "../ErrorWindow/ErrorWindow";
 
 function Root() {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState([]);
   const [activeElement, setActiveElement] = useState("");
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState({
+    state: true,
+    title: "Test",
+    message: "Testing",
+  });
 
   const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";
   useEffect(() => {
@@ -31,7 +35,7 @@ function Root() {
       })
       .then((response) => setAuth(response))
       .catch((err) => {
-        setErrorMessage({ message: err.message });
+        setError({ state: true, title: "HTTP Error", message: err.message });
       });
   });
 
@@ -49,7 +53,7 @@ function Root() {
         })
         .then((response) => setUser(response))
         .catch((err) => {
-          setErrorMessage({ message: err.message });
+          setError({ state: true, title: "HTTP Error", message: err.message });
         });
     }
   }, [auth]);
@@ -63,6 +67,7 @@ function Root() {
         setAuth={setAuth}
         user={user}
       />
+      <ErrorWindow error={error} setError={setError} />
 
       <Outlet />
       <Routes errorElement={<ErrorPage />}>
@@ -74,8 +79,6 @@ function Root() {
               auth={auth}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -87,8 +90,6 @@ function Root() {
               auth={auth}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -99,8 +100,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -111,8 +110,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -123,8 +120,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -135,8 +130,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -147,8 +140,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -159,8 +150,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
@@ -171,13 +160,11 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              errorMessage={errorMessage}
-              setErrorMessage={setErrorMessage}
             />
           }
         />
       </Routes>
-    </>
+    </ >
   );
 }
 

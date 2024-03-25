@@ -1,14 +1,7 @@
 import LoginForm from "../LoginForm/LoginForm";
 import PostsDash from "../PostsDash/PostsDash";
 
-function Homepage({
-  setActiveElement,
-  auth,
-  error,
-  setError,
-  errorMessage,
-  setErrorMessage,
-}) {
+function Homepage({ setActiveElement, auth, error, setError }) {
   return (
     <>
       {auth && (
@@ -16,8 +9,6 @@ function Homepage({
           setActiveElement={setActiveElement}
           error={error}
           setError={setError}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
         />
       )}
       {!auth && (
@@ -25,8 +16,6 @@ function Homepage({
           setActiveElement={setActiveElement}
           error={error}
           setError={setError}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
         />
       )}
     </>

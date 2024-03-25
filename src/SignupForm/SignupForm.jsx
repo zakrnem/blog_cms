@@ -2,13 +2,7 @@ import styles from "./SignupForm.module.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function SignupForm({
-  setActiveElement,
-  error,
-  setError,
-  errorMessage,
-  setErrorMessage,
-}) {
+function SignupForm({ setActiveElement, setError }) {
   const navigate = useNavigate();
   useEffect(() => {
     setActiveElement("signup");
@@ -29,39 +23,32 @@ function SignupForm({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          setError(true);
-          if (response.status === 400) {
-            setErrorMessage({
-              title: "Bad request",
-              message: "Username or password are wrong",
-            });
-          } else {
-            setErrorMessage({
-              title: "HTTP Error",
-              message: `This is an HTTP error: The status is ${response.status}`,
-            });
-          }
+    }).then((response) => {
+      if (!response.ok) {
+        setError(true);
+        if (response.status === 400) {
+          setError({
+            state: true,
+            title: "Bad request",
+            message: "Please check the requirements",
+          });
         } else {
-          setError(false);
+          setError({
+            state: true,
+            title: "HTTP Error",
+            message: `This is an HTTP error: The status is ${response.status}`,
+          });
         }
-        return response.json();
-      })
-      .finally(() => {
-        navigate("/error");
-      });
+      } else {
+        setError(false);
+        navigate("/home");
+      }
+      return response.json();
+    });
   };
 
   return (
     <div className={styles.signup}>
-      {error && (
-        <div className={styles.error}>
-          <div className={styles.errorTitle}>{errorMessage.title}</div>
-          <>{errorMessage.message}</>
-        </div>
-      )}
       <div className={styles.title}>Create an account</div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
