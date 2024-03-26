@@ -17,9 +17,7 @@ function Root() {
   const [user, setUser] = useState([]);
   const [activeElement, setActiveElement] = useState("");
   const [error, setError] = useState({
-    state: true,
-    title: "Test",
-    message: "Testing",
+    state: false
   });
 
   const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";

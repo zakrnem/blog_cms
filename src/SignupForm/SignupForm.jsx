@@ -40,7 +40,11 @@ function SignupForm({ setActiveElement, setError }) {
           });
         }
       } else {
-        setError(false);
+        setError({
+          state: true,
+          title: "Thank you for registering!",
+          message: `Please allow up to one business day for your account to be validated. We appreciate your patience!`,
+        });
         navigate("/home");
       }
       return response.json();
