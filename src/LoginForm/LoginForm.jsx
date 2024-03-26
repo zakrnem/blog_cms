@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm({ setActiveElement, setError }) {
+function LoginForm({ setActiveElement, setError, auth }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (auth) navigate("/home")
     setActiveElement("login");
   });
 

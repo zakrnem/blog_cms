@@ -96,8 +96,8 @@ function Root() {
           element={
             <LoginForm
               setActiveElement={setActiveElement}
-              error={error}
               setError={setError}
+              auth={auth}
             />
           }
         />
@@ -106,8 +106,8 @@ function Root() {
           element={
             <SignupForm
               setActiveElement={setActiveElement}
-              error={error}
               setError={setError}
+              auth={auth}
             />
           }
         />

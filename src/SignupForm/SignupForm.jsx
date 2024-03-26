@@ -2,9 +2,10 @@ import styles from "./SignupForm.module.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function SignupForm({ setActiveElement, setError }) {
+function SignupForm({ setActiveElement, setError, auth }) {
   const navigate = useNavigate();
   useEffect(() => {
+    if (auth) navigate("/home")
     setActiveElement("signup");
   });
 
