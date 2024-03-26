@@ -3,11 +3,14 @@ import styles from "./CommentsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 
-function CommentsDash({ setActiveElement, setError }) {
+function CommentsDash({ setActiveElement, error, setError }) {
+  const navigate = useNavigate();
+  const page = 1;
   const [blogData, setBlogData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (error.state) navigate("/home");
     setActiveElement("comments");
   });
 
@@ -21,20 +24,30 @@ function CommentsDash({ setActiveElement, setError }) {
     fetch(apiURL, { method: "get" })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`,
-          );
+          setError(true);
+          if (response.status === 401) {
+            setError({
+              state: true,
+              title: "Unauthorized",
+              message: "Please log in before browsing this page",
+            });
+          } else {
+            setError({
+              state: true,
+              title: "HTTP Error",
+              message: `This is an HTTP error: The status is ${response.status}`,
+            });
+          }
+        } else {
+          setError({ state: false });
         }
         return response.json();
       })
       .then((actualData) => setBlogData(actualData))
-      .catch((err) => {
-        setError({ state: true, title: "HTTP Error", message: err.message });
-      })
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [page]);
 
   return (
     <div className={styles.posts}>

@@ -11,7 +11,7 @@ function PostsDash({ setActiveElement, error, setError }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (error) navigate("/home");
+    if (error.state) navigate("/home");
     setActiveElement("posts");
   });
 
@@ -30,7 +30,7 @@ function PostsDash({ setActiveElement, error, setError }) {
       .then((response) => {
         if (!response.ok) {
           setError(true);
-          if (err.status === 401) {
+          if (response.status === 401) {
             setError({
               state: true,
               title: "Unauthorized",
