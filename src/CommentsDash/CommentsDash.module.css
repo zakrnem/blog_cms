@@ -1,6 +1,5 @@
-.posts {
+.comments {
   display: grid;
-  justify-items: center;
   gap: 0.75rem;
   padding-top: 1rem;
 }
@@ -25,7 +24,7 @@
   animation: spinner 1s linear infinite;
 }
 
-.title {
+.author {
   font-weight: bolder;
   color: var(--black);
   font-size: 1.5rem;
@@ -49,13 +48,9 @@
 }
 
 .date,
-.author {
-  font-size: 0.9rem;
+.title {
+  font-size: 1rem;
   font-weight: 600;
-}
-
-.comments {
-  font-weight: bold;
 }
 
 .next_page {
@@ -68,5 +63,19 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .comments {
+    margin: 0 1rem;
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .comments {
+    width: min(75%, 100ch);
+    align-self: center;
   }
 }

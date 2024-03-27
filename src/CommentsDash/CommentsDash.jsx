@@ -50,7 +50,7 @@ function CommentsDash({ setActiveElement, error, setError }) {
   }, [page]);
 
   return (
-    <div className={styles.posts}>
+    <div className={styles.comments}>
       {loading && blogData.length < 1 && (
         <div className={styles.loading}>
           <div className={styles.loader} />
@@ -68,11 +68,12 @@ function CommentsDash({ setActiveElement, error, setError }) {
           <div key={key}>
             <div className={styles.comment}>
               <Link to="#" onClick={handleCommentClick}>
-                <div className={styles.title} id={id}>
-                  {title}
+                <div className={styles.author} id={id}>
+                  {author}
                   <div className={styles.data}>
+                  <div className={styles.title}>{title}</div>
+                  <div className={styles.title}>|</div>
                     <div className={styles.date}>{date}</div>
-                    <div className={styles.author}>{author}</div>
                   </div>
                 </div>
               </Link>
