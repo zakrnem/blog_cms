@@ -55,6 +55,15 @@ function Header({ activeElement, setActiveElement, auth, setAuth, user }) {
               Posts
             </Link>
             <Link
+              to="newpost"
+              className={activeElement === "newpost" ? styles.active : ""}
+              onClick={() => {
+                setActiveElement("newpost");
+              }}
+            >
+              New Post
+            </Link>
+            <Link
               to="#"
               className={`${styles.account} ${activeElement === "user" ? styles.active : ""}`}
             >

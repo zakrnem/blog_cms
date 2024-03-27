@@ -35,6 +35,12 @@ function PostNew({ setActiveElement, error, setError, auth, user }) {
             title: "Unauthorized",
             message: "Please log in before submitting a post",
           });
+        } if (response.status === 400) {
+          setError({
+            state: true,
+            title: "Bad request",
+            message: "There's another post with the same title",
+          });
         } else {
           setError({
             state: true,
