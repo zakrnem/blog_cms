@@ -37,8 +37,8 @@
 }
 
 form > .visibility {
-    display: flex;
-    gap: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
 }
 
 @media screen and (max-width: 500px) {
@@ -52,15 +52,15 @@ form > .visibility {
 }
 
 @media screen and (max-width: 900px) {
-    .container {
-      margin: 0 1rem;
-      align-self: center;
-    }
+  .container {
+    margin: 0 1rem;
+    align-self: center;
   }
-  
-  @media screen and (min-width: 900px) {
-    .container {
-      width: min(75%, 100ch);
-      align-self: center;
-    }
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    width: min(75%, 100ch);
+    align-self: center;
   }
+}

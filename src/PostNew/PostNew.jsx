@@ -1,11 +1,55 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./PostNew.module.css";
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log("Submit");
-};
+function PostNew({ setActiveElement, error, setError, auth, user }) {
+  const navigate = useNavigate();
 
-function PostNew() {
+  useEffect(() => {
+    if (error.state) navigate("/home");
+    setActiveElement("newpost");
+  });
+
+  const apiURL = import.meta.env.VITE_API_URL + "/posts";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const title = e.target.querySelector("#title").value;
+    const content = e.target.querySelector("#content").value;
+    const visible = e.target.querySelector("#visible").checked;
+    const data = { user, title, content, visible };
+
+    fetch(apiURL, {
+      method: "post",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((response) => {
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError({
+            state: true,
+            title: "Unauthorized",
+            message: "Please log in before submitting a post",
+          });
+        } else {
+          setError({
+            state: true,
+            title: "HTTP Error",
+            message: `This is an HTTP error: The status is ${response.status}`,
+          });
+        }
+      } else {
+        setError({ state: false });
+        navigate("/posts");
+      }
+      return response.json();
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Create a new post</div>
@@ -27,8 +71,8 @@ function PostNew() {
           ></textarea>
         </>
         <div className={styles.visibility}>
-        <input type="checkbox"></input>
-        <label>Visible</label>
+          <input type="checkbox" id="visible"></input>
+          <label>Visible</label>
         </div>
         <input className={styles.submit} type="submit" />
       </form>

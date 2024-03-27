@@ -138,6 +138,8 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
+              auth={auth}
+              user={user}
             />
           }
         />
@@ -148,6 +150,8 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
+              auth={auth}
+              user={user}
             />
           }
         />
