@@ -55,7 +55,7 @@ function Header({ activeElement, setActiveElement, auth, setAuth, user }) {
               Posts
             </Link>
             <Link
-              to="user"
+              to="#"
               className={`${styles.account} ${activeElement === "user" ? styles.active : ""}`}
             >
               <img src="./user-svgrepo-com.svg" className={styles.userlogo} />

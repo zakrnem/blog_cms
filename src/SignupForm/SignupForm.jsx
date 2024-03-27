@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function SignupForm({ setActiveElement, setError, auth }) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (auth) navigate("/home")
+    if (auth) navigate("/home");
     setActiveElement("signup");
   });
 

@@ -71,8 +71,8 @@ function CommentsDash({ setActiveElement, error, setError }) {
                 <div className={styles.author} id={id}>
                   {author}
                   <div className={styles.data}>
-                  <div className={styles.title}>{title}</div>
-                  <div className={styles.title}>|</div>
+                    <div className={styles.title}>{title}</div>
+                    <div className={styles.title}>|</div>
                     <div className={styles.date}>{date}</div>
                   </div>
                 </div>

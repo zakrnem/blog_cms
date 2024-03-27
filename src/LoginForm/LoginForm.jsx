@@ -6,7 +6,7 @@ function LoginForm({ setActiveElement, setError, auth }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth) navigate("/home")
+    if (auth) navigate("/home");
     setActiveElement("login");
   });
 
@@ -25,28 +25,27 @@ function LoginForm({ setActiveElement, setError, auth }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          if (response.status === 400) {
-            setError({
-              state: true,
-              title: "Bad request",
-              message: "Username or password are wrong",
-            });
-          } else {
-            setError({
-              state: true,
-              title: "HTTP Error",
-              message: `This is an HTTP error: The status is ${response.status}`,
-            });
-          }
+    }).then((response) => {
+      if (!response.ok) {
+        if (response.status === 400) {
+          setError({
+            state: true,
+            title: "Bad request",
+            message: "Username or password are wrong",
+          });
         } else {
-          setError({ state: false });
-          navigate("/posts")
+          setError({
+            state: true,
+            title: "HTTP Error",
+            message: `This is an HTTP error: The status is ${response.status}`,
+          });
         }
-        return response.json();
-      })
+      } else {
+        setError({ state: false });
+        navigate("/posts");
+      }
+      return response.json();
+    });
   };
 
   return (

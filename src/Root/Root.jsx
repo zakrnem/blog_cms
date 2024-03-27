@@ -17,7 +17,7 @@ function Root() {
   const [user, setUser] = useState([]);
   const [activeElement, setActiveElement] = useState("");
   const [error, setError] = useState({
-    state: false
+    state: false,
   });
 
   const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";
@@ -132,7 +132,7 @@ function Root() {
           }
         />
         <Route
-          path="/post/edit"
+          path="/editpost"
           element={
             <PostEdit
               setActiveElement={setActiveElement}
@@ -142,7 +142,7 @@ function Root() {
           }
         />
         <Route
-          path="/post/new"
+          path="/newpost"
           element={
             <PostNew
               setActiveElement={setActiveElement}
@@ -162,7 +162,7 @@ function Root() {
           }
         />
       </Routes>
-    </ >
+    </>
   );
 }
 

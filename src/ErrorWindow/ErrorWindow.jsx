@@ -15,7 +15,7 @@ function ErrorWindow({ error, setError }) {
           <button onClick={handleDismiss}>Dismiss</button>
         </div>
       )}
-    </ div>
+    </div>
   );
 }
 
