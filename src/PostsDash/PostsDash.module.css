@@ -77,3 +77,17 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-width: 900px) {
+  .posts {
+    margin: 0 1rem;
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .posts {
+    width: min(75%, 100ch);
+    align-self: center;
+  }
+}
