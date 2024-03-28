@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./PostsDash.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
+import editIcon from "/edit-svgrepo-com.svg";
 
 function PostsDash({ setActiveElement, error, setError }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function PostsDash({ setActiveElement, error, setError }) {
 
   const handlePostClick = (e) => {
     e.preventDefault();
-    console.log("Clicked post");
+    console.log(e.target.parentElement.id);
   };
   const handleNextPage = (e) => {
     e.preventDefault();
@@ -69,17 +70,19 @@ function PostsDash({ setActiveElement, error, setError }) {
         const date = blogData[index].date;
         const visible = blogData[index].visible;
         const commentsNumber = blogData[index].commentsNumber;
-        const id = blogData[index].id;
+        const id = blogData[index]._id;
         return (
           <div key={key}>
             {visible && (
               <div className={styles.post}>
                 <Link to="#" onClick={handlePostClick}>
-                  <div className={styles.title} id={id}>
-                    {title}
-                    <div className={styles.date}>{date}</div>
+                  <div id={id} className={styles.header}>
+                    <div className={styles.title}>{title}</div>
+                    <img src={editIcon} className={styles.icon} />
                   </div>
                 </Link>
+                <div className={styles.date}>{date}</div>
+
                 <div className={styles.summary}>{summary}</div>
                 <div className={styles.comments}>
                   Comments: {commentsNumber}

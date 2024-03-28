@@ -25,6 +25,11 @@
   animation: spinner 1s linear infinite;
 }
 
+.header {
+  display: flex;
+  gap: 1rem;
+}
+
 .title {
   font-weight: bolder;
   color: var(--black);
@@ -44,6 +49,7 @@
 }
 
 .date {
+  color: var(--black);
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -67,6 +73,10 @@
   font-size: 1.25rem;
   font-weight: bold;
   padding-bottom: 0.25rem;
+}
+
+.icon {
+  height: 1.5rem;
 }
 
 @keyframes spinner {
