@@ -19,6 +19,7 @@ function Root() {
   const [error, setError] = useState({
     state: false,
   });
+  const [postURL, setPostURL] = useState("");
 
   const isAuthURL = import.meta.env.VITE_API_URL + "/is_auth";
   useEffect(() => {
@@ -77,6 +78,7 @@ function Root() {
               auth={auth}
               error={error}
               setError={setError}
+              setPostURL={setPostURL}
             />
           }
         />
@@ -88,6 +90,7 @@ function Root() {
               auth={auth}
               error={error}
               setError={setError}
+              setPostURL={setPostURL}
             />
           }
         />
@@ -118,6 +121,7 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
+              setPostURL={setPostURL}
             />
           }
         />
@@ -140,6 +144,7 @@ function Root() {
               setError={setError}
               auth={auth}
               user={user}
+              postURL={postURL}
             />
           }
         />

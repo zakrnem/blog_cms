@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router-dom";
 import editIcon from "/edit-svgrepo-com.svg";
 
-function PostsDash({ setActiveElement, error, setError }) {
+function PostsDash({ setActiveElement, error, setError, setPostURL }) {
   const navigate = useNavigate();
 
   const page = 1;
@@ -18,8 +18,11 @@ function PostsDash({ setActiveElement, error, setError }) {
 
   const handlePostClick = (e) => {
     e.preventDefault();
-    console.log(e.target.parentElement.id);
+    const postId = e.target.parentElement.id;
+    setPostURL(import.meta.env.VITE_API_URL + "/posts/" + postId);
+    navigate("/editpost");
   };
+
   const handleNextPage = (e) => {
     e.preventDefault();
     console.log("Clicked next page");
@@ -73,7 +76,6 @@ function PostsDash({ setActiveElement, error, setError }) {
         const id = blogData[index]._id;
         return (
           <div key={key}>
-            {visible && (
               <div className={styles.post}>
                 <Link to="#" onClick={handlePostClick}>
                   <div id={id} className={styles.header}>
@@ -88,7 +90,6 @@ function PostsDash({ setActiveElement, error, setError }) {
                   Comments: {commentsNumber}
                 </div>
               </div>
-            )}
           </div>
         );
       })}
