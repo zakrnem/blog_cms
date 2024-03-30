@@ -2,7 +2,7 @@ import styles from "./PostEdit.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function PostEdit({ setActiveElement, error, setError, user, postURL }) {
+function PostEdit({ error, setError, user, postURL }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [postData, setPostData] = useState({});
@@ -10,44 +10,47 @@ function PostEdit({ setActiveElement, error, setError, user, postURL }) {
 
   useEffect(() => {
     if (error.state) navigate("/home");
-    setActiveElement("editpost");
   });
 
   // Fetch existing post from server
   useEffect(() => {
-    fetch(postURL, { method: "get" })
-      .then((response) => {
-        if (!response.ok) {
-          if (response.status === 401) {
-            setError({
-              state: true,
-              title: "Unauthorized",
-              message: "Please log in before editing a post",
-            });
+    if (!postURL) {
+      navigate("/home");
+    } else {
+      fetch(postURL, { method: "get" })
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 401) {
+              setError({
+                state: true,
+                title: "Unauthorized",
+                message: "Please log in before editing a post",
+              });
+            }
+            if (response.status === 400) {
+              setError({
+                state: true,
+                title: "Bad request",
+                message: "There's another post with the same title",
+              });
+            } else {
+              setError({
+                state: true,
+                title: "HTTP Error",
+                message: `This is an HTTP error: The status is ${response.status}`,
+              });
+            }
           }
-          if (response.status === 400) {
-            setError({
-              state: true,
-              title: "Bad request",
-              message: "There's another post with the same title",
-            });
-          } else {
-            setError({
-              state: true,
-              title: "HTTP Error",
-              message: `This is an HTTP error: The status is ${response.status}`,
-            });
-          }
-        }
-        return response.json();
-      })
-      .then((actualData) => setPostData(actualData))
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+          return response.json();
+        })
+        .then((actualData) => setPostData(actualData))
+        .catch((err) => {
+          setError(err.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }, [postURL]);
 
   const handleSubmit = (e) => {
@@ -57,8 +60,6 @@ function PostEdit({ setActiveElement, error, setError, user, postURL }) {
     const content = document.querySelector("#content").textContent;
     const id = document.querySelector("form").id;
     const data = { userid, title, content, visible, id };
-
-    //console.log(data)
 
     fetch(postURL, {
       method: "put",

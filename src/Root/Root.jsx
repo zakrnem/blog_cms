@@ -139,10 +139,8 @@ function Root() {
           path="/editpost"
           element={
             <PostEdit
-              setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              auth={auth}
               user={user}
               postURL={postURL}
             />
@@ -155,7 +153,6 @@ function Root() {
               setActiveElement={setActiveElement}
               error={error}
               setError={setError}
-              auth={auth}
               user={user}
             />
           }

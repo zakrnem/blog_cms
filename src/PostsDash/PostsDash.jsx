@@ -12,10 +12,6 @@ function PostsDash({ setActiveElement, error, setError, setPostURL }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(blogData);
-  }, [blogData]);
-
-  useEffect(() => {
     if (error.state) navigate("/home");
     setActiveElement("posts");
   });

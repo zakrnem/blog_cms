@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./PostNew.module.css";
 
-function PostNew({ setActiveElement, error, setError, auth, user }) {
+function PostNew({ setActiveElement, error, setError, user }) {
   const navigate = useNavigate();
 
   useEffect(() => {
