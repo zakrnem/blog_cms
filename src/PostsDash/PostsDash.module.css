@@ -48,10 +48,12 @@
   text-align: justify;
 }
 
-.date {
+.subheader {
+  display: flex;
+  gap: 0.4rem;
   color: var(--black);
-  font-size: 0.9rem;
   font-weight: 500;
+  margin-top: -0.5rem;
 }
 
 .comments {

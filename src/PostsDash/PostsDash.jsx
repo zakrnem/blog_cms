@@ -12,6 +12,10 @@ function PostsDash({ setActiveElement, error, setError, setPostURL }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log(blogData);
+  }, [blogData]);
+
+  useEffect(() => {
     if (error.state) navigate("/home");
     setActiveElement("posts");
   });
@@ -73,23 +77,24 @@ function PostsDash({ setActiveElement, error, setError, setPostURL }) {
         const date = blogData[index].date;
         const visible = blogData[index].visible;
         const commentsNumber = blogData[index].commentsNumber;
+        const author = blogData[index].author;
         const id = blogData[index]._id;
         return (
           <div key={key}>
-              <div className={styles.post}>
-                <Link to="#" onClick={handlePostClick}>
-                  <div id={id} className={styles.header}>
-                    <div className={styles.title}>{title}</div>
-                    <img src={editIcon} className={styles.icon} />
-                  </div>
-                </Link>
-                <div className={styles.date}>{date}</div>
-
-                <div className={styles.summary}>{summary}</div>
-                <div className={styles.comments}>
-                  Comments: {commentsNumber}
+            <div className={styles.post}>
+              <Link to="#" onClick={handlePostClick}>
+                <div id={id} className={styles.header}>
+                  <div className={styles.title}>{title}</div>
+                  <img src={editIcon} className={styles.icon} />
                 </div>
+              </Link>
+              <div className={styles.subheader}>
+                <div>{author}</div>
+                <div>{date}</div>
               </div>
+              <div className={styles.summary}>{summary}</div>
+              <div className={styles.comments}>Comments: {commentsNumber}</div>
+            </div>
           </div>
         );
       })}
