@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
-import ErrorPage from "../error-page";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import Homepage from "../Homepage/Homepage";
 import LoginForm from "../LoginForm/LoginForm";
 import SignupForm from "../SignupForm/SignupForm";
@@ -158,7 +158,7 @@ function Root() {
           }
         />
         <Route
-          path="/error"
+          path="*"
           element={
             <ErrorPage
               setActiveElement={setActiveElement}
