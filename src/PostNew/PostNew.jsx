@@ -67,6 +67,9 @@ function PostNew({ setActiveElement, error, setError, user }) {
             type="text"
             id="title"
             placeholder="Enter a title for the post"
+            minLength={10}
+            maxLength={100}
+            required
           />
         </>
         <>
@@ -75,6 +78,9 @@ function PostNew({ setActiveElement, error, setError, user }) {
             id="content"
             className={styles.content}
             placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+            minLength={50}
+            maxLength={7000}
+            required
           ></textarea>
         </>
         <div className={styles.visibility}>

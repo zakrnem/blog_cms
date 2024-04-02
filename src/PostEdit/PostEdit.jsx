@@ -129,7 +129,14 @@ function PostEdit({ error, setError, user, postURL }) {
           <form onSubmit={handleSubmit} className={styles.form} id={id}>
             <>
               <label htmlFor="title">Title: </label>
-              <input type="text" id="title" defaultValue={title} />
+              <input
+                type="text"
+                id="title"
+                defaultValue={title}
+                minLength={10}
+                maxLength={100}
+                required
+              />
             </>
             <>
               <label htmlFor="content">Content: </label>
@@ -137,6 +144,9 @@ function PostEdit({ error, setError, user, postURL }) {
                 id="content"
                 className={styles.content}
                 defaultValue={content}
+                minLength={50}
+                maxLength={7000}
+                required
               ></textarea>
             </>
             <div className={styles.visible}>

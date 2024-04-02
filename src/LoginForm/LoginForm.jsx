@@ -70,7 +70,13 @@ function LoginForm({ setActiveElement, setError, auth }) {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <label htmlFor="username">Username: </label>
-          <input type="text" id="username" placeholder="Enter your username" />
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            minLength={3}
+            required
+          />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
@@ -78,6 +84,8 @@ function LoginForm({ setActiveElement, setError, auth }) {
             type="password"
             id="password"
             placeholder="Enter your password"
+            minLength={4}
+            required
           />
         </div>
         <input className={styles.submit} type="submit" />

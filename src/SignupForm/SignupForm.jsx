@@ -62,15 +62,29 @@ function SignupForm({ setActiveElement, setError, auth }) {
             type="text"
             id="firstName"
             placeholder="Enter your first name"
+            minLength={3}
+            required
           />
         </div>
         <div>
           <label htmlFor="lastName">Last Name: </label>
-          <input type="text" id="lastName" placeholder="Enter your last name" />
+          <input
+            type="text"
+            id="lastName"
+            placeholder="Enter your last name"
+            minLength={3}
+            required
+          />
         </div>
         <div>
           <label htmlFor="username">Email: </label>
-          <input type="text" id="username" placeholder="Enter your email" />
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your email"
+            minLength={6}
+            required
+          />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
@@ -78,6 +92,8 @@ function SignupForm({ setActiveElement, setError, auth }) {
             type="password"
             id="password"
             placeholder="Enter your password"
+            minLength={8}
+            required
           />
         </div>
         <input className={styles.submit} type="submit" />
