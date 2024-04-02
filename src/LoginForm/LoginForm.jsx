@@ -27,18 +27,34 @@ function LoginForm({ setActiveElement, setError, auth }) {
       body: JSON.stringify(data),
     }).then((response) => {
       if (!response.ok) {
-        if (response.status === 400) {
-          setError({
-            state: true,
-            title: "Bad request",
-            message: "Username or password are wrong",
-          });
-        } else {
-          setError({
-            state: true,
-            title: "HTTP Error",
-            message: `This is an HTTP error: The status is ${response.status}`,
-          });
+        switch (true) {
+          case response.status === 400:
+            {
+              setError({
+                state: true,
+                title: "Bad request",
+                message: "Username not found",
+              });
+            }
+            break;
+          case response.status === 401:
+            {
+              setError({
+                state: true,
+                title: "Unauthorized",
+                message: "Password is wrong",
+              });
+            }
+            break;
+          case response.status === 403:
+            {
+              setError({
+                state: true,
+                title: "Forbidden",
+                message: "User doesn't have ADMIN credentials",
+              });
+            }
+            break;
         }
       } else {
         setError({ state: false });
